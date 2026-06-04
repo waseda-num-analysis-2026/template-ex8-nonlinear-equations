@@ -1,0 +1,247 @@
+---
+title: "Exercise 8.2 — Simultaneous Root-Finding by the DK Method"
+subtitle: "Numerical Analysis 2026 — Lecture 8"
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    code-tools: true
+    highlight-style: github
+execute:
+  echo: true
+  warning: false
+jupyter: python3
+---
+
+## Problem
+
+Implement the **Durand–Kerner (DK) method** (also known as Weierstrass's method)
+for finding *all* roots of a polynomial simultaneously, and reproduce the
+experimental results from **Section 5.2 of the shared handout**.
+
+The DK update for a monic degree-$n$ polynomial $p(z) = \prod_{j=1}^n (z - z_j)$
+is
+
+$$
+z_i^{(k+1)} = z_i^{(k)} - \frac{p(z_i^{(k)})}{\displaystyle\prod_{j \neq i}(z_i^{(k)} - z_j^{(k)})},
+\qquad i = 1, \dots, n.
+$$
+
+**Required tasks:**
+
+- Implement the DK method
+- Use the **same polynomial examples** as handout Section 5.2
+- Use the **same simple circle-based initial values** as the handout
+- Show **convergence behavior** via plots
+- Report **final approximations** and **residuals** in a table
+
+**Optional extension (bonus):**
+
+Implement **Aberth-type initial values** and compare them with the
+simple circle-based initial values.
+See Aberth (1973), *Math. Comp.* **27**(122), 339–344, Section 4.
+
+AI is permitted. AI is **recommended** for plotting.
+
+---
+
+## 1. Implementation
+
+### 1.1 DK iteration
+
+```{python}
+import numpy as np
+import matplotlib.pyplot as plt
+
+def dk_method(coeffs, z0, max_iter=100, tol=1e-10):
+    """
+    Durand--Kerner (Weierstrass) method for simultaneous polynomial root-finding.
+
+    Parameters
+    ----------
+    coeffs : array-like
+        Coefficients of the monic polynomial in descending order, i.e.
+        p(z) = z^n + coeffs[0]*z^(n-1) + ... + coeffs[n-1].
+        Pass the coefficients of the non-leading terms only (length n).
+    z0 : array-like of complex
+        Initial approximations for all n roots (length n).
+    max_iter : int
+    tol : float
+        Stopping criterion: max_i |p(z_i)| < tol.
+
+    Returns
+    -------
+    z_history : list of 1-D complex arrays  (length = iterations + 1)
+    res_history : list of floats            max_i |p(z_i)|
+    converged : bool
+    """
+    # Build coefficient array for np.polyval:  [1, coeffs[0], ..., coeffs[n-1]]
+    full_coeffs = np.concatenate([[1.0], coeffs])
+    n = len(z0)
+    z = np.array(z0, dtype=complex)
+    z_history = [z.copy()]
+    res_history = [np.max(np.abs(np.polyval(full_coeffs, z)))]
+
+    for _ in range(max_iter):
+        z_new = z.copy()
+        for i in range(n):
+            pz = np.polyval(full_coeffs, z[i])
+            denom = np.prod(z[i] - np.delete(z, i))  # product over j != i
+            # TODO: update z_new[i]
+            z_new[i] = None  # replace with correct DK step
+        z = z_new
+        res = np.max(np.abs(np.polyval(full_coeffs, z)))
+        z_history.append(z.copy())
+        res_history.append(res)
+        if res < tol:
+            return z_history, res_history, True
+
+    return z_history, res_history, False
+```
+
+### 1.2 Simple circle-based initial values
+
+Use the same initial values as described in the handout.
+
+```{python}
+def circle_initial_values(n, radius=1.0, center=0.0):
+    """
+    Simple circle-based initial values: equally spaced on a circle.
+
+    z_i^(0) = center + radius * exp(2*pi*i*k / n),  k = 0, ..., n-1
+    """
+    # TODO: return np.array([...], dtype=complex)
+    pass
+```
+
+---
+
+## 2. Polynomial examples (handout Section 5.2)
+
+Apply the DK method to **each polynomial listed in handout Section 5.2**.
+For each polynomial:
+
+- State the polynomial and its exact (or reference) roots.
+- Use the simple circle-based initial values specified in the handout.
+- Run `dk_method` and record the history.
+
+```{python}
+# TODO: define each polynomial from Section 5.2 of the handout.
+# Example structure (adjust coefficients to match the handout):
+
+# Polynomial 1: p(z) = z^3 - 1  →  coeffs = [0, 0, -1]  (monic, non-leading)
+# coeffs_1 = np.array([0.0, 0.0, -1.0])
+# n1 = 3
+# z0_1 = circle_initial_values(n1, radius=1.0)
+# hist1, res1, ok1 = dk_method(coeffs_1, z0_1)
+# print(f"Poly 1: converged={ok1}, iterations={len(hist1)-1}, final residual={res1[-1]:.2e}")
+# print("Roots found:", hist1[-1])
+```
+
+```{python}
+# Polynomial 2: (define from handout)
+```
+
+```{python}
+# Add more polynomials as needed to reproduce all examples in Section 5.2.
+```
+
+---
+
+## 3. Convergence plots
+
+For each polynomial, plot the convergence behavior: $\max_i |p(z_i^{(k)})|$ vs.
+iteration $k$ (log scale on $y$-axis recommended).
+
+```{python}
+# TODO: convergence plots
+# Example structure:
+# fig, ax = plt.subplots()
+# ax.semilogy(res1, marker='o', label="Poly 1")
+# ax.semilogy(res2, marker='s', label="Poly 2")
+# ax.set_xlabel("Iteration k")
+# ax.set_ylabel(r"$\max_i |p(z_i^{(k)})|$")
+# ax.legend()
+# ax.set_title("DK method — convergence")
+# plt.tight_layout()
+# plt.show()
+```
+
+You may also plot the root trajectories in the complex plane (optional but
+informative).
+
+---
+
+## 4. Summary table
+
+Fill in the table after running your experiments.
+
+| Polynomial | Degree | Converged? | Iterations | Final $\max_i\|p(z_i)\|$ | Approximated roots |
+|------------|--------|------------|------------|---------------------------|-------------------|
+| Poly 1 | | | | | |
+| Poly 2 | | | | | |
+
+: **Summary table (fill after running your code).**
+
+Also report the residuals $|p(z_i^*)|$ for each individual root in the space
+below, or add columns to the table above.
+
+> *(write or add a code cell here)*
+
+---
+
+## 5. Discussion
+
+Briefly answer:
+
+1. Did all examples reproduce the results in the handout?
+2. How fast does the DK method converge (quadratic, linear, or other)?
+   Show evidence from your plots.
+3. Were any polynomials harder to solve than others? Why might this be?
+
+> **Your answer:**
+>
+> *(write here)*
+
+---
+
+## 6. (Optional) Aberth-type initial values
+
+If you implement Aberth-type initial values (Aberth 1973, Section 4),
+compare them with the simple circle-based initial values on at least one
+polynomial example. Discuss differences in:
+
+- Number of iterations to convergence
+- Final residuals
+- Convergence plots
+
+```{python}
+def aberth_initial_values(coeffs):
+    """
+    Aberth-type initial values (Aberth 1973, Math. Comp. 27(122), Section 4).
+    """
+    # TODO (optional)
+    pass
+```
+
+```{python}
+# TODO (optional): run comparison experiments and produce plots/table
+```
+
+> **Discussion (optional):**
+>
+> *(write here)*
+
+---
+
+## AI Usage
+
+Check one:
+
+- [ ] I did not use AI.
+- [ ] I used AI for debugging / plotting / explanation only.
+- [ ] I used AI more substantially, and I verified the result myself.
+
+If you used AI, briefly describe how:
+
+> *(write here)*
