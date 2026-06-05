@@ -12,10 +12,17 @@ into this repo.
 
 | File | Topic |
 |---|---|
-| `ex8-0.qmd` | **Ex 8.0** — environment check + handout study with AI Tutor (Sections 4–5) |
 | `ex8-1.qmd` | Multi-dimensional Newton's method for systems of nonlinear equations |
 | `ex8-2.qmd` | Simultaneous polynomial root-finding by the DK (Durand–Kerner) method |
 | `requirements.txt` | Python packages used in the exercises |
+
+For Ex 8.0, study the shared Lectures 7--8 handout
+([`070/nonlinear-equations-handout.qmd`](https://github.com/waseda-num-analysis-2026/materials/blob/main/070/nonlinear-equations-handout.qmd)
+in the `materials` repository), focusing on **Sections 4--5**, and add
+at least **3 Q&A blocks** following
+[`AI_TUTOR.md`](https://github.com/waseda-num-analysis-2026/materials/blob/main/AI_TUTOR.md).
+The handout stays in the `materials` repository — no extra file is needed
+in this repository for Ex 8.0.
 
 ---
 
@@ -34,21 +41,20 @@ Then select the `.venv` interpreter in VS Code / Cursor.
 ## Render
 
 ```bash
-quarto render ex8-0.qmd
 quarto render ex8-1.qmd
 quarto render ex8-2.qmd
 ```
 
-**IMPORTANT:** This creates `ex8-0.html`, `ex8-1.html`, `ex8-2.html`, and
-the corresponding `ex8-*_files/` directories.
+**IMPORTANT:** **This creates `ex8-1.html`, `ex8-2.html`, and the
+corresponding `ex8-*_files/` directories.**
 
 ---
 
 ## Submission
 
 ```bash
-git add ex8-0.qmd ex8-1.qmd ex8-2.qmd
-git add ex8-0.html ex8-1.html ex8-2.html ex8-0_files ex8-1_files ex8-2_files
+git add ex8-1.qmd ex8-2.qmd
+git add ex8-1.html ex8-2.html ex8-1_files ex8-2_files
 git commit -m "Submit Ex 8"
 git push
 ```
@@ -56,11 +62,10 @@ git push
 You may push as many times as you like before the deadline; the **last
 commit before the deadline** will be graded.
 
-**IMPORTANT:** After pushing, open your repository on GitHub and check that
-the rendered HTML files are visible in the browser.
+**IMPORTANT:** **After pushing, open your repository on GitHub and check
+that the rendered HTML files are visible in the browser.**
 
 **Deadlines (JST):**
-- Ex 8.0 — June 11 (Thu), 23:59 JST
 - Ex 8.1 — June 11 (Thu), 23:59 JST
 - Ex 8.2 — June 14 (Sun), 23:59 JST
 
