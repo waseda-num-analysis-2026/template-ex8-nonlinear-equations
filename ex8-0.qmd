@@ -1,0 +1,137 @@
+---
+title: "Exercise 8.0 — Handout Study and Environment Check"
+subtitle: "Numerical Analysis 2026 — Lectures 7–8"
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    code-tools: true
+    highlight-style: github
+execute:
+  echo: true
+  warning: false
+jupyter: python3
+---
+
+## Problem
+
+This warm-up exercise has **two tasks**.
+
+**Task A — Environment check.**
+Run the code cell in Section 1 to confirm that your Python environment is
+set up correctly for Exercises 8.1 and 8.2.
+
+**Task B — Handout study with AI Tutor.**
+Read Sections 4–5 of the shared Lectures 7–8 handout
+(available at
+[`nonlinear-equations-handout.html`](https://waseda-num-analysis-2026.github.io/materials/070/nonlinear-equations-handout.html))
+and add **at least 3 Q&A blocks** using the AI Tutor workflow described in
+Section 2 below.
+The annotated handout lives in the `materials` repository — **you do not
+need to copy it into this repository**.
+
+AI is **recommended** for this exercise (the whole point is to interact
+with the AI Tutor).
+
+---
+
+## 1. Environment Check
+
+Run the cell below.  If no error is raised, your environment is ready for
+Exercises 8.1 and 8.2.
+
+```{python}
+import numpy as np
+import matplotlib
+import matplotlib.pyplot as plt
+
+print("numpy      :", np.__version__)
+print("matplotlib :", matplotlib.__version__)
+print("Environment OK.")
+```
+
+---
+
+## 2. Handout Study with AI Tutor
+
+### Goal
+
+While reading the shared Lectures 7–8 handout, insert **at least 3 Q&A
+blocks** of your own — questions you actually had while reading,
+answered with the help of an AI (GitHub Copilot, ChatGPT, etc.) following
+the protocol in
+[`AI_TUTOR.md`](https://github.com/waseda-num-analysis-2026/materials/blob/main/AI_TUTOR.md).
+
+**Target:** focus on **Section 4** (multi-dimensional Newton's method) and
+**Section 5** (simultaneous polynomial root-finding by the DK method),
+which are the topics for Lecture 8 and Exercises 8.1–8.2.
+Questions about any other section of the handout are also accepted.
+
+### Steps
+
+1. Open the handout file you cloned from the `materials` repository:
+   `materials/070/nonlinear-equations-handout.qmd`
+   (or the Japanese version `nonlinear-equations-handout-jp.qmd`).
+
+2. **Prime the AI once per chat session.**
+   Open `materials/AI_TUTOR.md`, press `Cmd+L` / `Ctrl+L`, and send:
+
+   > Read this file.  From now on, follow these rules whenever I ask
+   > about my handout.
+
+3. **For each question:**
+   - Highlight the line in the handout that confuses you.
+   - Press `Cmd+L` / `Ctrl+L` and ask:
+
+     > I don't understand this line.
+     > Please add a Q&A block here following AI_TUTOR.md rules.
+
+   - Read the AI's answer and verify it makes sense.
+   - Accept the inserted Q&A block.
+
+4. Repeat for **at least 3 distinct questions**.
+
+5. Render the annotated handout to confirm the Q&A blocks are
+   formatted correctly:
+
+   ```bash
+   cd materials/070
+   quarto render nonlinear-equations-handout.qmd
+   ```
+
+   Open the generated `.html` file in your browser and check that the
+   Q&A callout blocks appear.
+
+> **Note:** You do **not** submit the annotated handout in this
+> repository.  The Q&A blocks live inside `materials/070/nonlinear-equations-handout.qmd`,
+> which is your personal evolving study note.
+
+### 2.1 Reflection
+
+After completing the Q&A blocks, briefly answer the following questions
+**here in this file**.
+
+**What three topics (or lines) did you ask the AI about?**
+
+> 1. *(write here)*
+> 2. *(write here)*
+> 3. *(write here)*
+
+**Did the AI's answers help you understand the material?  Were any
+answers wrong or unclear?**
+
+> *(write here)*
+
+---
+
+## AI Usage
+
+Check one:
+
+- [ ] I did not use AI.
+- [ ] I used AI for the AI Tutor task (Task B) only.
+- [ ] I used AI more substantially, and I verified the result myself.
+
+If you used AI, briefly describe how:
+
+> *(write here)*
